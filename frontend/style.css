@@ -1,0 +1,229 @@
+/* === Global styles all pages === */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    background-color: #1e1e1e;
+    color: #f5f5f5;
+    margin: 0;
+    padding: 10px; 
+}
+
+a {
+    color: #c2b280;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #8b0000;
+}
+
+/* === Landing page style (index.html) === */
+.landing-header, .landing-subheader {
+    text-align: center;
+    font-size: 3rem;
+    margin: 0 auto;
+    padding: 0;
+
+}
+
+.landing-subheader {
+    text-align: center;
+    font-size: 2rem;
+    margin: 0 auto;
+    padding: 10px;
+    padding: 0;
+
+}
+
+.user-list {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 10px;
+    list-style-type: none;
+    text-align: left;
+}
+
+.user-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2e2e2e;
+    margin-bottom: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+}
+
+.delete-button {
+    background-color: #5c5c5c;
+    color: #f5f5f5;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.delete-button:hover {
+    background-color: #993333;
+}
+
+.create-user-link {
+    font-weight: bold;
+    color: #c2b280;
+    display: inline-block;
+}
+
+.create-user-link:hover {
+    text-decoration: underline;
+    color: #8b0000;
+}
+
+.user-list li:last-child {
+    margin-top: 20px;
+}
+
+/* === Profile page (profile.html) === */
+.profile-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #2e2e2e;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+}
+
+.edit-button {
+    background-color: #5c5c5c;
+    color: #f5f5f5;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.edit-button:hover {
+    background-color: #993333;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 30px;
+    text-decoration: none;
+    color: #c2b280;
+    font-weight: 600;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+    color: #8b0000;
+}
+
+/* === Edit page (edit.html) === */
+.edit-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #2e2e2e;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #f5f5f5;
+}
+
+input,
+textarea {
+    margin-top: 5px;
+    padding: 8px;
+    border: 1px solid #444;
+    border-radius: 6px;
+    background-color: #3b3b3b;
+    color: #f5f5f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+}
+
+.save-button {
+    margin-top: 20px;
+    background-color: #c2b280;
+    color: #1e1e1e;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.save-button:hover {
+    background-color: #bfa265;
+}
+
+.cancel-link {
+    margin-top: 10px;
+    color: #ccc;
+    display: inline-block;
+    font-weight: 500;
+}
+
+.cancel-link:hover {
+    text-decoration: underline;
+    color: #8b0000;
+}
+
+/* === Create page (create.html) === */
+.new-user-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #2e2e2e;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+}
+
+.new-user-container h1 {
+    margin-bottom: 20px;
+    color: #f5f5f5;
+    font-weight: 700;
+    text-align: left;
+}
+
+.new-user-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.new-user-container label {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #f5f5f5;
+}
+
+.new-user-container input,
+.new-user-container textarea {
+    margin-top: 5px;
+    padding: 8px;
+    border: 1px solid #444;
+    border-radius: 6px;
+    background-color: #3b3b3b;
+    color: #f5f5f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+}
