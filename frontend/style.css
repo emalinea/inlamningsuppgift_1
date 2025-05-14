@@ -18,7 +18,7 @@ a:hover {
     color: #8b0000;
 }
 
-/* === Landing page style (index.html) === */
+/* === Michelle -- Landing page style (index.html) === */
 .landing-header, .landing-subheader {
     text-align: center;
     font-size: 3rem;
@@ -84,7 +84,7 @@ a:hover {
     margin-top: 20px;
 }
 
-/* === Profile page (profile.html) === */
+/* === Pallavi Profile page (profile.html) === */
 .profile-container {
     max-width: 500px;
     margin: 40px auto;
@@ -124,7 +124,7 @@ a:hover {
     color: #8b0000;
 }
 
-/* === Edit page (edit.html) === */
+/* === Aleksandra -- Edit page (edit.html) === */
 .edit-container {
     max-width: 500px;
     margin: 40px auto;
@@ -186,7 +186,7 @@ textarea {
     color: #8b0000;
 }
 
-/* === Create page (create.html) === */
+/* === Emma -- Create page (create.html) === */
 .new-user-container {
     max-width: 500px;
     margin: 40px auto;
