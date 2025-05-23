@@ -11,7 +11,7 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
 // 🌐 Statiska filer (CSS, JS, bilder)
-app.use(express.static("public"));
+app.use(express.static("Views"));
 
 // 🗄️ MySQL-anslutning
 const db = mysql.createConnection({
