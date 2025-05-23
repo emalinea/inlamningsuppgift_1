@@ -15,12 +15,8 @@ router.get("/users/:id", (req, res) => {
     return res.json(user);
 });
 
-router.post("/users", (req, res) => {
-    users.push({
-        name: req.body.name,
-        id: ++id
-    });
-    return res.json({ message: "Created"});
+router.post('/create', (req, res) => {
+    res.redirect({ message: "Created"});
 }); 
 
 router.patch("/users/:id", (req, res) => {
