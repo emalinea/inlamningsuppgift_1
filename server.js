@@ -6,7 +6,6 @@ const app = express();
 
 // 🧠 EJS som template engine
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
 
 // 🧾 För att läsa formdata
 app.use(express.urlencoded({ extended: true }));
