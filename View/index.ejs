@@ -1,38 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Users</title>
-        <link rel="stylesheet" href="style.css"/>
-    </head>
-    <body>
-        <h1 class="landing-header">Welcome</h1>
-        <section id="user-section">
-        </section>
-        <script src="index.js"></script>
-            <div class="user-list-container">
-                <h2 class="landing-subheader">All users</h2>
-                <ul class="user-list">
-                    <li>
-                        <a href="/user?id=1">Michelle</a>
-                        <button class="delete-button">X</button>
-                    </li>  
-                    <li>
-                        <a href="/user?id=2">Pallavi</a>
-                        <button class="delete-button">X</button>
-                    </li>
-                    <li>
-                        <a href="/user?id=3">Emma</a>
-                        <button class="delete-button">X</button>
-                    </li> 
-                
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Users</title>
+  <link rel="stylesheet" href="/style.css"/>
+</head>
+<body>
+  <h1 class="landing-header">Welcome</h1>
 
-                    <!-- Create new user link-->
-                     <li>
-                        <a href="/create" class="create-user-link">Create new user</a>
-                     </li>
-                </ul>    
-            </div>
-    </body>
+  <!-- Container för hela listdelen -->
+  <div class="user-list-container">
+    <h2 class="landing-subheader">All users</h2>
+
+    <!-- 🟢 Länk för att skapa en ny användare -->
+    <a href="/create" class="create-user-link">➕ Create new user</a>
+
+    <!-- Lista över användare -->
+    <ul class="user-list">
+      <li>
+        <a href="/user?id=1">Michelle</a>
+        <button class="delete-button">X</button>
+      </li>  
+      <li>
+        <a href="/user?id=2">Pallavi</a>
+        <button class="delete-button">X</button>
+      </li>
+      <li>
+        <a href="/user?id=3">Emma</a>
+        <button class="delete-button">X</button>
+      </li>
+    </ul>    
+  </div>
+
+  <!-- JS-fil för eventuell funktionalitet -->
+  <script src="/index.js"></script>
+</body>
 </html>
+

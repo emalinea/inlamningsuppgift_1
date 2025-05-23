@@ -66,6 +66,6 @@ app.get("/edit", (req, res) => {
 
 
 // ✅ Starta servern
-app.listen(3000, () => {
-  console.log("Servern körs på http://localhost:3000");
+app.listen(5500, () => {
+  console.log("Servern körs på http://localhost:5500");
 });
