@@ -22,9 +22,14 @@ const db = mysql.createConnection({
   database: "Usersdb"
 });
 
-db.connect((err) => {
-  if (err) throw err;
-  console.log("Ansluten till databasen.");
+app.post('/create', (req, res) => {
+    res.redirect({ message: "Created"});
+}); 
+
+app.patch("/users/:id", (req, res) => {
+ const user = users.find(val => val.id === Number(req.params.id));
+ user.name = req.body.name;
+ return res.json({ message: "Updated" }); 
 });
 
 
