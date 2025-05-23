@@ -34,7 +34,7 @@ app.patch("/users/:id", (req, res) => {
 
 // ✅ Route: Startsidan – visa alla användare
 app.get("/", (req, res) => {
-  db.query("SELECT * FROM users", (err, rows) => {
+  db.query("SELECT * FROM Users", (err, rows) => {
     if (err) throw err;
     res.render("index", { users: rows });
   });
@@ -43,9 +43,9 @@ app.get("/", (req, res) => {
 // ✅ Route: Profilsida – visa en specifik användare
 app.get("/user", (req, res) => {
   const id = req.query.id;
-  db.query("SELECT * FROM users WHERE id = ?", [id], (err, rows) => {
+  db.query("SELECT * FROM Users WHERE id = ?", [id], (err, rows) => {
     if (err) throw err;
-    res.render("user", { user: rows[0] });
+    res.render("User", { user: rows[0] });
   });
 });
 
@@ -57,7 +57,7 @@ app.get("/create", (req, res) => {
 // ✅ Route: Redigera användare (visa formulär)
 app.get("/edit", (req, res) => {
   const id = req.query.id;
-  db.query("SELECT * FROM users WHERE id = ?", [id], (err, rows) => {
+  db.query("SELECT * FROM Users WHERE id = ?", [id], (err, rows) => {
     if (err) throw err;
     res.render("edit", { user: rows[0] });
   });
