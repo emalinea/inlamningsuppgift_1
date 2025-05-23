@@ -69,4 +69,3 @@ app.get("/edit", (req, res) => {
 app.listen(3000, () => {
   console.log("Servern körs på http://localhost:3000");
 });
-
