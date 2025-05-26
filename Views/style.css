@@ -213,9 +213,9 @@ textarea:focus {
     max-width: 500px;
     margin: 40px auto;
     padding: 20px;
-    background-color: #2e2e2e;
+    background-color: #d5d5ea;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 8px rgba(154, 153, 153, 0.3);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 500;
 }
@@ -242,9 +242,9 @@ textarea:focus {
 .new-user-container textarea {
     margin-top: 5px;
     padding: 8px;
-    border: 1px solid #444;
+    border: 1px solid #aeabab;
     border-radius: 6px;
-    background-color: #3b3b3b;
+    background-color: #e3d5d5;
     color: #f5f5f5;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 500;
