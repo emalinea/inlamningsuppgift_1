@@ -21,24 +21,36 @@
 
     <!-- Lista över användare -->
     <ul class="user-list">
-      <li>
-        <a href="/user?id=1">Michelle</a>
-        <button class="delete-button">X</button>
-      </li>  
-      <li>
-        <a href="/user?id=2">Pallavi</a>
-        <button class="delete-button">X</button>
-      </li>
-      <li>
-        <a href="/user?id=3">Emma</a>
-        <button class="delete-button">X</button>
-      </li>
-      <li>
-        <a href="/user?id=4">Aleksandra</a>
-        <button class="delete-button">X</button>
-      </li>
-    </ul>    
-  </div>
+  <li>
+    <div class="user-info">
+      <a href="/user?id=1">Michelle</a>
+      <a href="/edit?id=1" class="edit-link">Edit</a>
+    </div>
+    <button class="delete-button">X</button>
+  </li>  
+  <li>
+    <div class="user-info">
+      <a href="/user?id=2">Pallavi</a>
+      <a href="/edit?id=2" class="edit-link">Edit</a>
+    </div>
+    <button class="delete-button">X</button>
+  </li>
+  <li>
+    <div class="user-info">
+      <a href="/user?id=3">Emma</a>
+      <a href="/edit?id=3" class="edit-link">Edit</a>
+    </div>
+    <button class="delete-button">X</button>
+  </li>
+  <li>
+    <div class="user-info">
+      <a href="/user?id=4">Aleksandra</a>
+      <a href="/edit?id=4" class="edit-link">Edit</a>
+    </div>
+    <button class="delete-button">X</button>
+  </li>
+</ul>
+
 
   <!-- JS-fil för eventuell funktionalitet -->
   <script src="/index.js"></script>
