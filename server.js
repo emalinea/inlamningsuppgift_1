@@ -22,8 +22,22 @@ const db = mysql.createConnection({
 });
 
 app.post('/create', (req, res) => {
+  const { name, nickname, age, bio } = req.body;
+
+  const sql = "INSERT INTO Users (name, nickname, age, bio) VALUES (?, ?, ?, ?)";
+  db.query(sql, [name, nickname, age, bio], (err, result) => {
+    if (err) {
+      console.error("Fel vid sparande:", err);
+      return res.status(500).send("Något gick fel vid sparande");
+    }
+    res.redirect('/');
+  });
+});
+
+/* OLD post-code 
+   app.post('/create', (req, res) => {
     res.redirect({ message: "Created"});
-}); 
+}); */ 
 
 app.patch("/users/:id", (req, res) => {
  const user = users.find(val => val.id === Number(req.params.id));
