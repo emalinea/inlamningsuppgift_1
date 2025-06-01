@@ -40,6 +40,11 @@ server.post("/users", function (request, response) {
     })
 })
 
+async function deleteUser(id) {
+  const sql = 'DELETE FROM users WHERE id = ?';
+  await pool.execute(sql, [id]);
+}
+
 server.listen(3000, function() {
     console.log("Started server at http://localhost:3000/users")
 })

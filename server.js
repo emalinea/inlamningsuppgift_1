@@ -77,6 +77,10 @@ app.get("/edit", (req, res) => {
   });
 });
 
+app.post('/users/:id/delete', async (req, res) => {
+  await db.deleteUser(req.params.id);
+  res.redirect('/');
+});
 
 // ✅ Starta servern
 app.listen(5500, () => {

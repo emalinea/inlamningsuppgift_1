@@ -33,7 +33,9 @@
       <a href="/user?id=2">Pallavi</a>
       <a href="/edit?id=2" class="edit-link">Edit</a>
     </div>
-    <button class="delete-button">X</button>
+    <form action="/users/1/delete" method="POST" style="display:inline;">
+  <button class="delete-button" onclick="return confirm('Är du säker på att du vill ta bort denna användare?')">X</button>
+</form>
   </li>
   <li>
     <div class="user-info">
