@@ -59,7 +59,7 @@ app.get("/user", (req, res) => {
   const id = req.query.id;
   db.query("SELECT * FROM Users WHERE id = ?", [id], (err, rows) => {
     if (err) throw err;
-    res.render("User", { user: rows[0] });
+    res.render("profile", { user: rows[0] });
   });
 });
 
