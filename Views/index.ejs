@@ -21,17 +21,36 @@
 
     <!-- Lista över användare -->
     <ul class="user-list">
-  <% data.forEach(user => { %>
-    <li>
-      <div class="user-info">
-        <a href="/user?id=<%= user.id %>"><%= user.name %></a>
-        <a href="/edit?id=<%= user.id %>" class="edit-link">Edit</a>
-      </div>
-      <form action="/users/<%= user.id %>/delete" method="POST" style="display:inline;">
-        <button class="delete-button" onclick="return confirm('Ta bort <%= user.name %>?')">X</button>
-      </form>
-    </li>
-  <% }) %>
+  <li>
+    <div class="user-info">
+      <a href="/user?id=1">Pallavi</a>
+      <a href="/edit?id=1" class="edit-link">Edit</a>
+    </div>
+    <button class="delete-button">X</button>
+  </li>  
+  <li>
+    <div class="user-info">
+      <a href="/user?id=2">Michelle</a>
+      <a href="/edit?id=2" class="edit-link">Edit</a>
+    </div>
+    <form action="/users/1/delete" method="POST" style="display:inline;">
+  <button class="delete-button" onclick="return confirm('Är du säker på att du vill ta bort denna användare?')">X</button>
+</form>
+  </li>
+  <li>
+    <div class="user-info">
+      <a href="/user?id=3">Emma</a>
+      <a href="/edit?id=3" class="edit-link">Edit</a>
+    </div>
+    <button class="delete-button">X</button>
+  </li>
+  <li>
+    <div class="user-info">
+      <a href="/user?id=4">Aleksandra</a>
+      <a href="/edit?id=4" class="edit-link">Edit</a>
+    </div>
+    <button class="delete-button">X</button>
+  </li>
 </ul>
 
 
