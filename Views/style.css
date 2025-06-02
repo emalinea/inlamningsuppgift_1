@@ -76,8 +76,8 @@ a:hover {
   width: fit-content;         /* Gör att bredden anpassas till texten */
   margin: 20px auto;          /* Auto centrerar den horisontellt */
   padding: 10px 20px;
-  background-color: #aaaaaa;
-  color: rgb(255, 255, 255);
+  background-color: #d2d2d7;
+  color: rgb(52, 52, 52);
   text-decoration: none;
   border-radius: 5px;
   font-weight: bold;
@@ -86,7 +86,7 @@ a:hover {
 
 .create-user-link:hover {
     text-decoration: underline;
-    color: #848484;
+    color: #0071e3;
 }
 
 .user-list li:last-child {
