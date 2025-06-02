@@ -1,47 +1,18 @@
-const mysql = require("mysql2/promise");
+const mysql = require("mysql2");
 
-async function connectDB() {
-  const connection = await mysql.createConnection({
-    host:  "10.80.72.24"
-    ,user: "root",
-    password: "root",
-    database: "Usersdb"
-  });
+const db = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "root",
+  database: "Usersdb"
+});
+
+db.connect((err) => {
+  if (err) {
+    console.error("Fel vid anslutning till databasen:", err.message);
+    process.exit(1);
+  }
   console.log("✅ Ansluten till databasen (via database.js)");
-  return connection;
-}
+});
 
-async function getAllUsers() {
-  const connection = await connectDB();
-  const [rows] = await connection.query("SELECT * FROM users");
-  await connection.end();
-  return rows;
-}
-
-async function getUserById(id) {
-  const connection = await connectDB();
-  const [rows] = await connection.query("SELECT * FROM users WHERE id = ?", [id]);
-  await connection.end();
-  return rows[0];  // Returnerar första raden eller undefined om ingen
-}
-
-async function addUser({ name, nickname, age, bio }) {
-  const connection = await connectDB();
-  const sql = "INSERT INTO users (Name, Nickname, Age, Bio) VALUES (?, ?, ?, ?)";
-  await connection.execute(sql, [name, nickname, age, bio]);
-  await connection.end();
-}
-
-async function deleteUser(id) {
-  const connection = await connectDB();
-  await connection.execute("DELETE FROM users WHERE id = ?", [id]);
-  await connection.end();
-}
-
-module.exports = {
-  getAllUsers,
-  getUserById,
-  addUser,
-  deleteUser,
-};
-
+module.exports = db;
