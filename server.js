@@ -1,83 +1,82 @@
 const express = require("express");
-const mysql = require("mysql2");
 const path = require("path");
-const db = require('./database');
+const db = require("./database"); // Använder database.js-funktionerna
 const app = express();
 
-// 🧠 EJS som template engine
+// 🧠 Använd EJS som template engine
 app.set("view engine", "ejs");
 
-// 🧾 För att läsa formdata
+// 🧾 Middleware för att läsa formdata
 app.use(express.urlencoded({ extended: true }));
 
-// 🌐 Statiska filer (CSS, JS, bilder)
+// 🌐 Statiska filer (CSS, JS)
 app.use(express.static("Views"));
 
-// 🗄️ MySQL-anslutning
-
-
-app.post('/create', (req, res) => {
-  const { name, nickname, age, bio } = req.body;
-
-  if (!name || !nickname || !age || !bio) {
-    return res.status(400).send("All fields must be filled out.");
+// ✅ Startsida – visa alla användare
+app.get("/", async (req, res) => {
+  try {
+    const users = await db.getAllUsers();
+    res.render("index", { users });
+  } catch (err) {
+    console.error("Fel vid hämtning av användare:", err.message);
+    res.status(500).send("Fel vid hämtning av användare.");
   }
-
-  const sql = "INSERT INTO Users (name, nickname, age, bio) VALUES (?, ?, ?, ?)";
-  db.query(sql, [name, nickname, parseInt(age), bio], (err, result) => {
-    if (err) {
-      console.error("Error while saving:", err.message);
-      return res.status(500).send("Something went wrong while saving the user.");
-    }
-    console.log("New user created with ID:", result.insertId);
-    res.redirect('/');
-  });
 });
 
-
-app.patch("/users/:id", (req, res) => {
- const user = users.find(val => val.id === Number(req.params.id));
- user.name = req.body.name;
- return res.json({ message: "Updated" }); 
-});
-
-
-// ✅ Route: Startsidan – visa alla användare
-app.get("/", (req, res) => {
-  db.query("SELECT * FROM Users", (err, rows) => {
-    if (err) throw err;
-    res.render("index", { users: rows });
-  });
-});
-
-// ✅ Route: Profilsida – visa en specifik användare
-app.get("/user", (req, res) => {
-  const id = req.query.id;
-  db.query("SELECT * FROM Users WHERE id = ?", [id], (err, rows) => {
-    if (err) throw err;
-    res.render("profile", { user: rows[0] });
-  });
-});
-
-// ✅ Route: Skapa användare (visa formulär)
+// ✅ Visa formulär för att skapa ny användare
 app.get("/create", (req, res) => {
   res.render("create");
 });
 
-// ✅ Route: Redigera användare (visa formulär)
-app.get("/edit", (req, res) => {
-  const id = req.query.id;
-  db.query("SELECT * FROM Users WHERE id = ?", [id], (err, rows) => {
-    if (err) throw err;
-    res.render("edit", { user: rows[0] });
-  });
+// ✅ Hantera POST – skapa ny användare
+app.post("/create", async (req, res) => {
+  const { name, nickname, age, bio } = req.body;
+
+  if (!name || !nickname || !age || !bio) {
+    return res.status(400).send("Alla fält måste fyllas i.");
+  }
+
+  try {
+    await db.addUser({ name, nickname, age: parseInt(age), bio });
+    res.redirect("/");
+  } catch (err) {
+    console.error("Fel vid skapande:", err.message);
+    res.status(500).send("Något gick fel vid skapande av användare.");
+  }
 });
 
-app.post('/users/:id/delete', async (req, res) => {
-  await db.deleteUser(req.params.id);
-  res.redirect('/');
+// ✅ Visa en användares profilsida
+app.get("/user", async (req, res) => {
+  try {
+    const user = await db.getUserById(req.query.id);
+    res.render("profile", { user });
+  } catch (err) {
+    console.error("Fel vid hämtning av användare:", err.message);
+    res.status(500).send("Kunde inte hämta användare.");
+  }
 });
 
+// ✅ Visa formulär för att redigera användare
+app.get("/edit", async (req, res) => {
+  try {
+    const user = await db.getUserById(req.query.id);
+    res.render("edit", { user });
+  } catch (err) {
+    console.error("Fel vid hämtning för redigering:", err.message);
+    res.status(500).send("Kunde inte hämta användare för redigering.");
+  }
+});
+
+// ✅ Hantera borttagning av användare
+app.post("/users/:id/delete", async (req, res) => {
+  try {
+    await db.deleteUser(req.params.id);
+    res.redirect("/");
+  } catch (err) {
+    console.error("Fel vid borttagning:", err.message);
+    res.status(500).send("Kunde inte ta bort användare.");
+  }
+});
 
 // ✅ Starta servern
 app.listen(5500, () => {

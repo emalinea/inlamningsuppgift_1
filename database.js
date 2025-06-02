@@ -1,18 +1,15 @@
-const mysql = require("mysql2");
+const mysql = require("mysql2/promise");
 
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "Usersdb"
-});
-
-db.connect((err) => {
-  if (err) {
-    console.error("Fel vid anslutning till databasen:", err.message);
-    process.exit(1);
-  }
+async function connectDB() {
+  const connection = await mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "Usersdb"
+  });
   console.log("✅ Ansluten till databasen (via database.js)");
-});
+  return connection;
+}
 
-module.exports = db;
+// Exporterar en Promise som löser till anslutningen
+module.exports = connectDB();
