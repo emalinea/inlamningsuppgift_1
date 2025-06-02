@@ -1,18 +1,18 @@
 const express = require("express");
 const path = require("path");
-const db = require("./database"); // Använder database.js-funktionerna
+const db = require("./database"); // Använder funktioner från database.js
 const app = express();
 
-// 🧠 Använd EJS som template engine
+// 🧠 Sätt EJS som template engine
 app.set("view engine", "ejs");
 
-// 🧾 Middleware för att läsa formdata
+// 🧾 Middleware för att läsa formdata från formulär
 app.use(express.urlencoded({ extended: true }));
 
-// 🌐 Statiska filer (CSS, JS)
-app.use(express.static("Views"));
+// 🌐 Servera statiska filer från mappen Views (med stort V)
+app.use(express.static(path.join(__dirname, "Views")));
 
-// ✅ Startsida – visa alla användare
+// ✅ Route: Startsidan – visa alla användare
 app.get("/", async (req, res) => {
   try {
     const users = await db.getAllUsers();
@@ -23,12 +23,12 @@ app.get("/", async (req, res) => {
   }
 });
 
-// ✅ Visa formulär för att skapa ny användare
+// ✅ Route: Visa formulär för att skapa ny användare
 app.get("/create", (req, res) => {
   res.render("create");
 });
 
-// ✅ Hantera POST – skapa ny användare
+// ✅ Route: Hantera POST – skapa ny användare
 app.post("/create", async (req, res) => {
   const { name, nickname, age, bio } = req.body;
 
@@ -45,7 +45,7 @@ app.post("/create", async (req, res) => {
   }
 });
 
-// ✅ Visa en användares profilsida
+// ✅ Route: Visa en användares profilsida
 app.get("/user", async (req, res) => {
   try {
     const user = await db.getUserById(req.query.id);
@@ -56,7 +56,7 @@ app.get("/user", async (req, res) => {
   }
 });
 
-// ✅ Visa formulär för att redigera användare
+// ✅ Route: Visa formulär för att redigera användare
 app.get("/edit", async (req, res) => {
   try {
     const user = await db.getUserById(req.query.id);
@@ -67,7 +67,7 @@ app.get("/edit", async (req, res) => {
   }
 });
 
-// ✅ Hantera borttagning av användare
+// ✅ Route: Hantera borttagning av användare
 app.post("/users/:id/delete", async (req, res) => {
   try {
     await db.deleteUser(req.params.id);
@@ -79,6 +79,7 @@ app.post("/users/:id/delete", async (req, res) => {
 });
 
 // ✅ Starta servern
-app.listen(5500, () => {
-  console.log("Servern körs på http://localhost:5500");
+const PORT = 5500;
+app.listen(PORT, () => {
+  console.log(`Servern körs på http://localhost:${PORT}`);
 });
