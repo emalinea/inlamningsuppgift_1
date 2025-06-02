@@ -24,20 +24,21 @@ const db = mysql.createConnection({
 app.post('/create', (req, res) => {
   const { name, nickname, age, bio } = req.body;
 
+  if (!name || !nickname || !age || !bio) {
+    return res.status(400).send("All fields must be filled out.");
+  }
+
   const sql = "INSERT INTO Users (name, nickname, age, bio) VALUES (?, ?, ?, ?)";
-  db.query(sql, [name, nickname, age, bio], (err, result) => {
+  db.query(sql, [name, nickname, parseInt(age), bio], (err, result) => {
     if (err) {
-      console.error("Fel vid sparande:", err);
-      return res.status(500).send("Något gick fel vid sparande");
+      console.error("Error while saving:", err.message);
+      return res.status(500).send("Something went wrong while saving the user.");
     }
+    console.log("New user created with ID:", result.insertId);
     res.redirect('/');
   });
 });
 
-/* OLD post-code 
-   app.post('/create', (req, res) => {
-    res.redirect({ message: "Created"});
-}); */ 
 
 app.patch("/users/:id", (req, res) => {
  const user = users.find(val => val.id === Number(req.params.id));
@@ -81,6 +82,7 @@ app.post('/users/:id/delete', async (req, res) => {
   await db.deleteUser(req.params.id);
   res.redirect('/');
 });
+
 
 // ✅ Starta servern
 app.listen(5500, () => {
