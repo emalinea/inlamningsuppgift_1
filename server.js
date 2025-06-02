@@ -14,12 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("Views"));
 
 // 🗄️ MySQL-anslutning
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "Usersdb"
-});
+
 
 app.post('/create', (req, res) => {
   const { name, nickname, age, bio } = req.body;
