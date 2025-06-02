@@ -1,7 +1,7 @@
 const express = require("express");
 const mysql = require("mysql2");
 const path = require("path");
-
+const db = require('./database');
 const app = express();
 
 // 🧠 EJS som template engine
