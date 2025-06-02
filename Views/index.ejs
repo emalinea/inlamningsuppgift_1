@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Users</title>
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
   <h1 class="landing-header">Homepage</h1>
@@ -12,29 +12,30 @@
   <div class="user-list-container">
     <h2 class="landing-subheader">All Users</h2>
 
-    <!-- Länk för att skapa en ny användare -->
+    <!-- Link to create a new user -->
     <a href="/create" class="create-user-link">Create User</a>
 
-    <!-- Dynamisk lista över användare -->
+    <!-- User list -->
     <ul class="user-list">
-  <% if (users && users.length > 0) { %>
-    <% users.forEach(user => { %>
-      <li>
-        <div class="user-info">
-          <a href="/user?id=<%= user.id %>"><%= user.name %></a>
-          <a href="/edit?id=<%= user.id %>" class="edit-link">Edit</a>
-        </div>
-        <form action="/users/<%= user.id %>/delete" method="POST" style="display:inline;">
-          <button class="delete-button" onclick='return confirm("Ta bort <%= user.name %>?")'>X</button>
-        </form>
-      </li>
-    <% }) %>
-  <% } else { %>
-    <li>Inga användare hittades.</li>
-  <% } %>
-</ul>
+      <% if (users && users.length > 0) { %>
+        <% users.forEach(user => { %>
+          <li>
+            <div class="user-info">
+              <a href="/user?id=<%= user.id %>"><%= user.name %></a>
+              <a href="/edit?id=<%= user.id %>" class="edit-link">Edit</a>
+            </div>
+            <form action="/users/<%= user.id %>/delete" method="POST" style="display:inline;">
+              <button class="delete-button" onclick="return confirm('Delete <%= user.name %>?')">X</button>
+            </form>
+          </li>
+        <% }) %>
+      <% } else { %>
+        <li>No users found.</li>
+      <% } %>
+    </ul>
+  </div>
 
-  <!-- JS-fil för funktionalitet -->
+  <!-- Optional JS file for extra functionality -->
   <script src="/index.js"></script>
 </body>
 </html>
