@@ -1,18 +1,19 @@
 const express = require("express");
 const path = require("path");
-const db = require("./database"); // Använder database.js-funktionerna
+const db = require("./database");
+
 const app = express();
 
-// 🧠 Använd EJS som template engine
+// Sätt view engine till EJS
 app.set("view engine", "ejs");
 
-// 🧾 Middleware för att läsa formdata
+// Middleware för att kunna läsa formdata från POST
 app.use(express.urlencoded({ extended: true }));
 
-// 🌐 Statiska filer (CSS, JS)
-app.use(express.static("Views"));
+// Servera statiska filer (CSS, JS, bilder, etc) från mappen "public"
+app.use(express.static(path.join(__dirname, "Views")));
 
-// ✅ Startsida – visa alla användare
+// Visa alla användare på startsidan
 app.get("/", async (req, res) => {
   try {
     const users = await db.getAllUsers();
@@ -23,14 +24,15 @@ app.get("/", async (req, res) => {
   }
 });
 
-// ✅ Visa formulär för att skapa ny användare
+// Visa formulär för att skapa en ny användare
 app.get("/create", (req, res) => {
   res.render("create");
 });
 
-// ✅ Hantera POST – skapa ny användare
+// Hantera POST från formulär – skapa användare
 app.post("/create", async (req, res) => {
   const { name, nickname, age, bio } = req.body;
+  console.log("Skapar användare med:", req.body);
 
   if (!name || !nickname || !age || !bio) {
     return res.status(400).send("Alla fält måste fyllas i.");
@@ -45,10 +47,13 @@ app.post("/create", async (req, res) => {
   }
 });
 
-// ✅ Visa en användares profilsida
+// Visa profil för en användare via id i query param
 app.get("/user", async (req, res) => {
   try {
     const user = await db.getUserById(req.query.id);
+    if (!user) {
+      return res.status(404).send("Användare hittades inte.");
+    }
     res.render("profile", { user });
   } catch (err) {
     console.error("Fel vid hämtning av användare:", err.message);
@@ -56,18 +61,7 @@ app.get("/user", async (req, res) => {
   }
 });
 
-// ✅ Visa formulär för att redigera användare
-app.get("/edit", async (req, res) => {
-  try {
-    const user = await db.getUserById(req.query.id);
-    res.render("edit", { user });
-  } catch (err) {
-    console.error("Fel vid hämtning för redigering:", err.message);
-    res.status(500).send("Kunde inte hämta användare för redigering.");
-  }
-});
-
-// ✅ Hantera borttagning av användare
+// Hantera borttagning av användare
 app.post("/users/:id/delete", async (req, res) => {
   try {
     await db.deleteUser(req.params.id);
@@ -78,7 +72,9 @@ app.post("/users/:id/delete", async (req, res) => {
   }
 });
 
-// ✅ Starta servern
+// Starta servern på port 5500
 app.listen(5500, () => {
   console.log("Servern körs på http://localhost:5500");
 });
+
+

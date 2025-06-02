@@ -17,25 +17,19 @@
 
     <!-- User list -->
     <ul class="user-list">
-      <% if (users && users.length > 0) { %>
-        <% users.forEach(user => { %>
-          <li>
-            <div class="user-info">
-              <a href="/user?id=<%= user.id %>"><%= user.name %></a>
-              <a href="/edit?id=<%= user.id %>" class="edit-link">Edit</a>
-            </div>
-            <form action="/users/<%= user.id %>/delete" method="POST" style="display:inline;">
-              <button class="delete-button" onclick="return confirm('Delete <%= user.name %>?')">X</button>
-            </form>
-          </li>
-        <% }) %>
-      <% } else { %>
-        <li>No users found.</li>
-      <% } %>
-    </ul>
-  </div>
-
-  <!-- Optional JS file for extra functionality -->
-  <script src="/index.js"></script>
-</body>
-</html>
+  <% if (users && users.length > 0) { %>
+    <% users.forEach(user => { %>
+      <li>
+        <div class="user-info">
+          <a href="/user?id=<%= user.id %>"><%= user.Name %></a>
+          <a href="/edit?id=<%= user.id %>" class="edit-link">Edit</a>
+        </div>
+        <form action="/users/<%= user.id %>/delete" method="POST" style="display:inline;">
+          <button class="delete-button" onclick='return confirm("Delete <%= user.name %>?")'>X</button>
+        </form>
+      </li>
+    <% }) %>
+  <% } else { %>
+    <li>No users found.</li>
+  <% } %>
+</ul>
