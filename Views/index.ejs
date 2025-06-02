@@ -14,26 +14,28 @@
 
   <!-- Container för hela listdelen -->
   <div class="user-list-container">
-    <h2 class="landing-subheader">All users</h2>
+    <h2 class="landing-subheader">All Users</h2>
 
     <!-- 🟢 Länk för att skapa en ny användare -->
-    <a href="/create" class="create-user-link"> Skapa användare</a>
+    <a href="/create" class="create-user-link"> Create User</a>
 
     <!-- Lista över användare -->
     <ul class="user-list">
   <li>
     <div class="user-info">
-      <a href="/user?id=1">Michelle</a>
+      <a href="/user?id=1">Pallavi</a>
       <a href="/edit?id=1" class="edit-link">Edit</a>
     </div>
     <button class="delete-button">X</button>
   </li>  
   <li>
     <div class="user-info">
-      <a href="/user?id=2">Pallavi</a>
+      <a href="/user?id=2">Michelle</a>
       <a href="/edit?id=2" class="edit-link">Edit</a>
     </div>
-    <button class="delete-button">X</button>
+    <form action="/users/1/delete" method="POST" style="display:inline;">
+  <button class="delete-button" onclick="return confirm('Är du säker på att du vill ta bort denna användare?')">X</button>
+</form>
   </li>
   <li>
     <div class="user-info">
