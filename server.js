@@ -41,8 +41,23 @@ app.get("/", async (req, res) => {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // ✅ Route: Visa formulär för att skapa ny användare
 =======
+=======
+app.get("/edit", async (req, res) => {
+  console.log("Edit-route anropad med id:", req.query.id);
+  try {
+    const user = await db.getUserById(req.query.id);
+    res.render("edit", { user });
+  } catch (err) {
+    console.error("Fel vid hämtning för redigering:", err.message);
+    res.status(500).send("Kunde inte hämta användare för redigering.");
+  }
+});
+
+
+>>>>>>> 16e6c7ca4c4a3b07ec7ce484c72fdd9e3b8efc88
 // Visa formulär för att skapa en ny användare
 >>>>>>> 3dbd975df6bac6c064509157d43c13f40b62301b
 app.get("/create", (req, res) => {
