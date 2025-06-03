@@ -72,6 +72,39 @@ app.post("/users/:id/delete", async (req, res) => {
   }
 });
 
+// Visa redigeringssidan för en specifik användare
+app.get("/edit", async (req, res) => {
+  const id = req.query.id;
+  if (!id) return res.status(400).send("ID saknas");
+
+  try {
+    const user = await db.getUserById(id);
+    if (!user) return res.status(404).send("Användare hittades inte");
+    res.render("edit", { user });
+  } catch (err) {
+    console.error("Fel vid hämtning av användare för redigering:", err.message);
+    res.status(500).send("Fel vid hämtning av användare.");
+  }
+});
+
+// Hantera POST från redigeringsformuläret – uppdatera användare
+app.post("/edit", async (req, res) => {
+  const { id, name, nickname, age, bio } = req.body;
+
+  if (!id || !name || !nickname || !age || !bio) {
+    return res.status(400).send("Alla fält måste fyllas i.");
+  }
+
+  try {
+    await db.updateUser(id, { name, nickname, age: parseInt(age), bio });
+    res.redirect("/");
+  } catch (err) {
+    console.error("Fel vid uppdatering:", err.message);
+    res.status(500).send("Något gick fel vid uppdatering av användare.");
+  }
+});
+
+
 // Starta servern på port 5500
 app.listen(5500, () => {
   console.log("Servern körs på http://localhost:5500");

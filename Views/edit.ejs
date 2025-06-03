@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Edit profile</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/style.css" />
 </head>
 
 <body>
@@ -13,46 +13,25 @@
       Edit User
     </h1>
 
-    <form>
+    <form action="/edit" method="POST">
+      <!-- Hidden input for user ID -->
+      <input type="hidden" name="id" value="<%= user.id %>" />
+
       <label for="name">Name:</label>
-      <input type="text" id="name" name="name" />
+      <input type="text" id="name" name="name" value="<%= user.Name %>" required />
 
       <label for="nickname">Nickname:</label>
-      <input type="text" id="nickname" name="nickname" value="Example text" />
+      <input type="text" id="nickname" name="nickname" value="<%= user.Nickname %>" required />
 
       <label for="age">Age:</label>
-      <input type="number" id="age" name="age" value="18" />
+      <input type="number" id="age" name="age" value="<%= user.Age %>" required />
 
       <label for="bio">Bio:</label>
-      <textarea id="bio" name="bio">A short description...</textarea>
+      <textarea id="bio" name="bio" required><%= user.Bio %></textarea>
 
       <button type="submit" class="save-button">Save</button>
-      <a href="index.html" class="cancel-link">Cancel</a>
+      <a href="/" class="cancel-link">Cancel</a>
     </form>
   </div>
-
-  <!-- ✅ JavaScript goes here, at the end -->
-  <script>
-    // Wait until the DOM is loaded
-    document.addEventListener("DOMContentLoaded", () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const userId = urlParams.get('id');
-
-      // Example data (replace with real backend later)
-      const users = {
-        1: { name: 'Michelle' },
-        2: { name: 'Pallavi' },
-        3: { name: 'Emma' },
-        4: { name: 'Aleksandra' }
-      };
-
-      // Fill form
-      if (userId && users[userId]) {
-        document.getElementById('name').value = users[userId].name;
-      } else {
-        document.getElementById('name').value = 'Unknown User';
-      }
-    });
-  </script>
 </body>
 </html>

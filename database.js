@@ -38,9 +38,22 @@ async function deleteUser(id) {
   await connection.end();
 }
 
+async function updateUser(id, { name, nickname, age, bio }) {
+  const connection = await connectDB();
+  const sql = `
+    UPDATE users
+    SET Name = ?, Nickname = ?, Age = ?, Bio = ?
+    WHERE id = ?
+  `;
+  await connection.execute(sql, [name, nickname, age, bio, id]);
+  await connection.end();
+}
+
+
 module.exports = {
   getAllUsers,
   getUserById,
   addUser,
   deleteUser,
+  updateUser,
 };
