@@ -7,7 +7,7 @@ async function connectDB() {
     password: "root",
     database: "Usersdb"
   });
-  console.log("✅ Ansluten till databasen (via database.js)");
+  console.log("Ansluten till databasen (via database.js)");
   return connection;
 }
 

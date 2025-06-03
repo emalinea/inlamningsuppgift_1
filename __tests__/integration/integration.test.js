@@ -1,99 +1,82 @@
 const request = require("supertest");
-const server = require("../../server");
-
+const { app, server } = require("../../server");
 
 jest.mock("../../database");
-const database = require("../../database");
+const db = require("../../database");
 
-const { beforeEach } = require("node:test");
+afterAll((done) => {
+  server.close(done);
+});
 
-describe("User routes", function() {
+describe("User routes", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
-    beforeEach(function() {
-        jest.clearAllMocks();
-    })
+  test("GET / returns list of users", async () => {
+    const fakeUsers = [
+      { name: "Lisa", nickname: "L", age: 30, bio: "Dog lover" },
+      { name: "Anna", nickname: "A", age: 28, bio: "Cat lover" },
+    ];
+    db.getAllUsers.mockResolvedValue(fakeUsers);
 
-    test("GET /users returns list of users", async function() {
-        const fakeUsers = [
-            { name: "Lisa", nickname: "L", age: 30, bio: "Dog lover"},
-            { name: "Anna", nickname: "A", age: 28, bio: "Cat lover"}
-        ]; 
-        database.getAllUsers.mockImplementation(function (callback){
-            callback(null, fakeUsers);
-    });         
-
-    const response = await request(server).get("/Users");
+    const response = await request(app).get("/");
     expect(response.statusCode).toBe(200);
     expect(response.text).toContain("Lisa");
     expect(response.text).toContain("Anna");
-
-});
-
-    test("POST /Users creates a user and returns updated list", async function () {
-    const fakePostResult = [
-      { name: "Bella", nickname: "B", age: 20, bio: "Hamster lover"},
-      { name: "Sara", nickname: "S", age: 25, bio: "Bird lover"},
-    ];
-
-    
-    database.createUsers.mockImplementation((name, nickname, age, bio, callback) => {
-      callback(null, fakePostResult);
-    });
-
-    const response = await request(app)
-      .post("/users")
-      .send("name=Bella&nickname=B&age=20&bio=Hamster lover")
-      .send("name=Sara&nickname=S&age=25&bio=Bird lover");
-
-    expect(response.statusCode).toBe(200);
-    expect(response.text).toContain("Bella");
-    expect(response.text).toContain("Sara");
   });
 
-  
-  test("POST /Users deletes a user and returns updated list", async function () {
-    const fakePostResult = [
-      { name: "Bella", nickname: "B", age: 20, bio: "Hamster lover"},
-      { name: "Sara", nickname: "S", age: 25, bio: "Bird lover"},
-    ];
-
-   
-    database.deleteUser.mockImplementation((name, nickname, age, bio, callback) => {
-      callback(null, fakePostResult);
-    });
+  test("POST /create creates a user", async () => {
+    db.addUser.mockResolvedValue();
 
     const response = await request(app)
-      .post("/users")
-      .send("name=Bella&nickname=B&age=20&bio=Hamster lover")
-      .send("name=Sara&nickname=S&age=25&bio=Bird lover");
+      .post("/create")
+      .type("form")
+      .send({
+        name: "Bella",
+        nickname: "B",
+        age: 20,
+        bio: "Hamster lover",
+      });
 
-    expect(response.statusCode).toBe(200);
-    expect(response.text).toContain("Bella");
-    expect(response.text).toContain("Sara");
+    expect(response.statusCode).toBe(302);
+    expect(db.addUser).toHaveBeenCalledWith({
+      name: "Bella",
+      nickname: "B",
+      age: 20,
+      bio: "Hamster lover",
+    });
   });
 
+  test("POST /users/:id/delete deletes a user", async () => {
+    db.deleteUser.mockResolvedValue();
 
-  test("POST /Users edit a user and returns updated list", async function () {
-    const fakePostResult = [
-      { name: "Bella", nickname: "B", age: 20, bio: "Hamster lover"},
-      { name: "Sara", nickname: "S", age: 25, bio: "Bird lover"},
-    ];
+    const response = await request(app).post("/users/1/delete");
 
-    
-    database.editUser.mockImplementation((name, nickname, age, bio, callback) => {
-      callback(null, fakePostResult);
-    });
+    expect(db.deleteUser).toHaveBeenCalledWith("1");
+    expect(response.statusCode).toBe(302);
+  });
+
+  test("POST /edit updates a user", async () => {
+    db.updateUser.mockResolvedValue();
 
     const response = await request(app)
-      .post("/users")
-      .send("name=Bella&nickname=B&age=20&bio=Hamster lover")
-      .send("name=Sara&nickname=S&age=25&bio=Bird lover");
+      .post("/edit")
+      .type("form")
+      .send({
+        id: "1",
+        name: "Updated",
+        nickname: "U",
+        age: 35,
+        bio: "Updated bio",
+      });
 
-    expect(response.statusCode).toBe(200);
-    expect(response.text).toContain("Bella");
-    expect(response.text).toContain("Sara");
+    expect(db.updateUser).toHaveBeenCalledWith("1", {
+      name: "Updated",
+      nickname: "U",
+      age: 35,
+      bio: "Updated bio",
+    });
+    expect(response.statusCode).toBe(302);
   });
-
-
-
 });
