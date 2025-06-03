@@ -22,7 +22,7 @@ async function getUserById(id) {
   const connection = await connectDB();
   const [rows] = await connection.query("SELECT * FROM users WHERE id = ?", [id]);
   await connection.end();
-  return rows[0];  // Returnerar första raden eller undefined om ingen
+  return rows[0];  
 }
 
 async function addUser({ name, nickname, age, bio }) {
@@ -38,9 +38,22 @@ async function deleteUser(id) {
   await connection.end();
 }
 
+async function updateUser(id, { name, nickname, age, bio }) {
+  const connection = await connectDB();
+  const sql = `
+    UPDATE users
+    SET Name = ?, Nickname = ?, Age = ?, Bio = ?
+    WHERE id = ?
+  `;
+  await connection.execute(sql, [name, nickname, age, bio, id]);
+  await connection.end();
+}
+
+
 module.exports = {
   getAllUsers,
   getUserById,
   addUser,
   deleteUser,
+  updateUser,
 };

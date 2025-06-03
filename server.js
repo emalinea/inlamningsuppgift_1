@@ -4,16 +4,16 @@ const db = require("./database");
 
 const app = express();
 
-// Sätt view engine till EJS
+
 app.set("view engine", "ejs");
 
-// Middleware för att kunna läsa formdata från POST
+
 app.use(express.urlencoded({ extended: true }));
 
-// Servera statiska filer (CSS, JS, bilder, etc) från mappen "public"
+
 app.use(express.static(path.join(__dirname, "Views")));
 
-// Visa alla användare på startsidan
+
 app.get("/", async (req, res) => {
   try {
     const users = await db.getAllUsers();
@@ -24,12 +24,12 @@ app.get("/", async (req, res) => {
   }
 });
 
-// Visa formulär för att skapa en ny användare
+
 app.get("/create", (req, res) => {
   res.render("create");
 });
 
-// Hantera POST från formulär – skapa användare
+
 app.post("/create", async (req, res) => {
   const { name, nickname, age, bio } = req.body;
   console.log("Skapar användare med:", req.body);
@@ -47,7 +47,7 @@ app.post("/create", async (req, res) => {
   }
 });
 
-// Visa profil för en användare via id i query param
+
 app.get("/user", async (req, res) => {
   try {
     const user = await db.getUserById(req.query.id);
@@ -61,7 +61,7 @@ app.get("/user", async (req, res) => {
   }
 });
 
-// Hantera borttagning av användare
+
 app.post("/users/:id/delete", async (req, res) => {
   try {
     await db.deleteUser(req.params.id);
@@ -72,7 +72,40 @@ app.post("/users/:id/delete", async (req, res) => {
   }
 });
 
-// Starta servern på port 5500
+
+app.get("/edit", async (req, res) => {
+  const id = req.query.id;
+  if (!id) return res.status(400).send("ID saknas");
+
+  try {
+    const user = await db.getUserById(id);
+    if (!user) return res.status(404).send("Användare hittades inte");
+    res.render("edit", { user });
+  } catch (err) {
+    console.error("Fel vid hämtning av användare för redigering:", err.message);
+    res.status(500).send("Fel vid hämtning av användare.");
+  }
+});
+
+
+app.post("/edit", async (req, res) => {
+  const { id, name, nickname, age, bio } = req.body;
+
+  if (!id || !name || !nickname || !age || !bio) {
+    return res.status(400).send("Alla fält måste fyllas i.");
+  }
+
+  try {
+    await db.updateUser(id, { name, nickname, age: parseInt(age), bio });
+    res.redirect("/");
+  } catch (err) {
+    console.error("Fel vid uppdatering:", err.message);
+    res.status(500).send("Något gick fel vid uppdatering av användare.");
+  }
+});
+
+
+
 app.listen(5500, () => {
   console.log("Servern körs på http://localhost:5500");
 });
