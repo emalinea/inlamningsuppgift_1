@@ -22,7 +22,7 @@ async function getUserById(id) {
   const connection = await connectDB();
   const [rows] = await connection.query("SELECT * FROM users WHERE id = ?", [id]);
   await connection.end();
-  return rows[0];  // Returnerar första raden eller undefined om ingen
+  return rows[0];  
 }
 
 async function addUser({ name, nickname, age, bio }) {
