@@ -15,9 +15,10 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest __integration_test__",
+    "test:e2e": "npx playwright test --ui",
     "start": "node server.js",
-    "dev": "nodemon app.js" 
+    "dev": "nodemon app.js"
   },
   "dependencies": {
     "ejs": "^3.1.10",
@@ -25,6 +26,8 @@
     "mysql2": "^3.14.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.29",
     "jest": "^29.7.0",
     "nodemon": "^3.1.10",
     "supertest": "^7.1.1"
