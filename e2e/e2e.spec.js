@@ -54,7 +54,8 @@ test.describe('User Management Flow', () => {
   const profileLink = updatedUserItem.locator('a').first(); 
   await profileLink.click();
   await expect(page).toHaveURL(/\/user\?id=\d+/);
-  await expect(page.locator('p')).toContainText(updatedBio);
+  
+  await expect(page.locator('p', { hasText: 'Bio:' })).toContainText(updatedBio);
 });
 test('Deletes user from homepage', async ({ page }) => {
     await page.goto(`${baseURL}/`);
